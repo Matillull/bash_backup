@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Configuración
-SOURCE="/home/matias/archivos_a_respaldar"  # Ruta del archivo o directorio a respaldar en formato UNIX
-BACKUP_DIR="/home/matias/backup"  # Ruta del directorio de respaldo en formato UNIX
-RETENTION_DAYS=30  # Días de retención de las copias antiguas
+SOURCE="/home/matias/archivos_a_respaldar"  # Ruta del archivo o directorio a respaldar en formato UNIX (Remplaza por tu ruta)
+BACKUP_DIR="/home/matias/backup"  # Ruta del directorio de respaldo en formato UNIX (Remplaza por tu ruta)
+RETENTION_DAYS=30  # Días de retención de las copias antiguas (Ajusta segun tu modelo de negocio)
 
 # Crear el directorio de respaldo si no existe
 mkdir -p "$BACKUP_DIR"
@@ -26,8 +26,8 @@ find "$BACKUP_DIR" -type f -name "backup_*.tar.gz" -mtime +$RETENTION_DAYS -exec
 echo "Copias antiguas eliminadas (más de $RETENTION_DAYS días)."
 
 # Programar ejecución automática con cron
-CRON_JOB="05 21 * * * /bin/bash $(realpath "$0")"
+CRON_JOB="05 21 * * * /bin/bash $(realpath "$0")" #(Puedes ajustar la hora en esta linea)
 if ! crontab -l | grep -q "$(realpath "$0")"; then
     (crontab -l; echo "$CRON_JOB") | crontab -
-    echo "Tarea programada para ejecutarse todos los días a las 21:05"
+    echo "Tarea programada para ejecutarse todos los días a las 21:05" #(Si cambias la hora ajusta tambien este echo para que concuerde y no genere confusiones).
 fi
